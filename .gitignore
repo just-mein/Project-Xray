@@ -2,3 +2,5 @@ Dataset/
 test/
 train/
 val/
+*.h5
+SwinTransformer.ipynb/
