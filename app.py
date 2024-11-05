@@ -7,6 +7,10 @@ import io
 from flask_cors import CORS
 import sys
 import traceback
+from vit_keras import vit  # Thư viện Vision Transformer của bạn
+import threading  # Thêm thư viện để xử lý đa luồng
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -91,21 +95,26 @@ models = {
 # Load model function
 def load_model(model_name):
     custom_objects = {
-        "Custom>ClassToken": ClassToken,
-        "Custom>AddPositionEmbs": AddPositionEmbs,
-        "Custom>TransformerBlock": TransformerBlock,
-        "Addons>SigmoidFocalCrossEntropy": tfa.losses.SigmoidFocalCrossEntropy
+        "ClassToken": ClassToken,
+        "AddPositionEmbs": AddPositionEmbs,
+        "TransformerBlock": TransformerBlock,
+        "SigmoidFocalCrossEntropy": tfa.losses.SigmoidFocalCrossEntropy
     }
     try:
-        if model_name in ['Vision Transformer']:  # Chỉ thêm custom layers cho Vision Transformer
-            with tf.keras.utils.custom_object_scope(custom_objects):
-                model = tf.keras.models.load_model(models[model_name]['path'])
-        else:
+        with tf.keras.utils.custom_object_scope({
+            "ClassToken": ClassToken,
+            "AddPositionEmbs": AddPositionEmbs,
+            "TransformerBlock": TransformerBlock,
+            "SigmoidFocalCrossEntropy": tfa.losses.SigmoidFocalCrossEntropy
+        }):
             model = tf.keras.models.load_model(models[model_name]['path'])
         return model
     except Exception as e:
         print(f"Error loading model {model_name}: {e}")
+        traceback.print_exc(file=sys.stdout)  # In chi tiết lỗi
         return None
+
+
 
 
 # Load all models into a dictionary
