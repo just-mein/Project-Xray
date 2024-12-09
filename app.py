@@ -7,7 +7,7 @@ import io
 from flask_cors import CORS
 import sys
 import traceback
-from vit_keras import vit  # Thư viện Vision Transformer của bạn
+from vit_keras import vit  # Thư viện Vision Transformer
 import threading  # Thêm thư viện để xử lý đa luồng
 
 
@@ -85,11 +85,11 @@ models = {
     'DenseNet121': {'path': './DenseNet3.h5', 'input_size': (500, 500, 3)},
     'DenseNet169': {'path': './DenseNet169_model.h5', 'input_size': (224, 224, 3)},
     'EfficientNetV2': {'path': './EfficientNetV2.h5', 'input_size': (224, 224, 3)},
-    'CNN': {'path': './sequential_model.h5', 'input_size': (500, 500, 1)},
-    'ResNet50': {'path': './resnet50_custom.h5', 'input_size': (500, 500, 3)},
-    'VGG16': {'path': './vgg16_1.h5', 'input_size': (500, 500, 3)},
-    'ResNet101': {'path': './ResNet101_model.h5', 'input_size': (224, 224, 3)},
-    'EfficientNetB3': {'path': './EfficientNetB3_model.h5', 'input_size': (300, 300, 3)},
+    #'CNN': {'path': './sequential_model.h5', 'input_size': (500, 500, 1)},
+    #'ResNet50': {'path': './resnet50_custom.h5', 'input_size': (500, 500, 3)},
+    #'VGG16': {'path': './vgg16_1.h5', 'input_size': (500, 500, 3)},
+    #'ResNet101': {'path': './ResNet101_model.h5', 'input_size': (224, 224, 3)},
+    #'EfficientNetB3': {'path': './EfficientNetB3_model.h5', 'input_size': (300, 300, 3)},
 }
 
 # Load model function
